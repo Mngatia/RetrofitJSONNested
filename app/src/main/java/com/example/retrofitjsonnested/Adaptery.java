@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,11 +19,11 @@ import java.util.List;
 public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
 
     private Context mContext;
-    private List<Movie> movieList;
+    private List<Movie> moviesList;
 
-    public Adaptery(Context mContext, List<Movie> movieList) {
+    public Adaptery(Context mContext, List<Movie> moviesList) {
         this.mContext = mContext;
-        this.movieList = movieList;
+        this.moviesList = moviesList;
     }
 
     @NonNull
@@ -39,32 +40,46 @@ public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         // holder.id.setText(String.valueOf(movieList));
-        holder.id.setText(""+ movieList.get(position).getId());
-        holder.title.setText(movieList.get(position).getTitle());
+        holder.title.setText(moviesList.get(position).getTitle());
+
+        //Trick - Getting data from the nested json object
+        holder.duration.setText(moviesList.get(position).getMoreDetails().getDuration());
+        holder.category.setText(moviesList.get(position).getMoreDetails().getCategory());
+        holder.release.setText(moviesList.get(position).getMoreDetails().getRelease());
+
 
         //Adding Glide library to display the images
         Glide.with(mContext)
-                .load(movieList.get(position).getPoster())
+                .load(moviesList.get(position).getPoster())
                 .into(holder.img);
 
     }
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return moviesList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView title;
-        TextView id;
+        TextView duration;
         ImageView img;
+
+        RatingBar ratingBar;
+        TextView category;
+        TextView release;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.textView2);
-            id = itemView.findViewById(R.id.textView3);
+            duration = itemView.findViewById(R.id.textView3);
             img = itemView.findViewById(R.id.imageView);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            category = itemView.findViewById(R.id.textView);
+            release = itemView.findViewById(R.id.textView4);
+
+
         }
     }
 }

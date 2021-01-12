@@ -1,5 +1,7 @@
 package com.example.retrofitjsonnested;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Movie {
 
     //model class
@@ -9,6 +11,8 @@ public class Movie {
     private String poster;
 
     //Object of class details
+    //Different name from JSON, so we need to serialize it
+    @SerializedName("Details")
     private MoreDetails moreDetails;
 //constructor
     public Movie(String id, String title, double rating, String poster, MoreDetails moreDetails) {
