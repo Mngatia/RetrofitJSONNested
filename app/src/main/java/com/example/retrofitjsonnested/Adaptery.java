@@ -53,6 +53,10 @@ public class Adaptery extends RecyclerView.Adapter<Adaptery.MyViewHolder> {
                 .load(moviesList.get(position).getPoster())
                 .into(holder.img);
 
+        //Setting the rating bar value
+        //Rating is 5 and ratings is over 10
+        holder.ratingBar.setRating((Float.parseFloat(String.valueOf(moviesList.get(position).getRating())))/2);
+
     }
 
     @Override
